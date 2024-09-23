@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 10
-        self.velocity = 2
+        self.velocity = 1
         self.image_right = pygame.image.load('assets/arbre_droite.png')
         self.image_left = pygame.image.load('assets/arbre_gauche.png')
         self.image = self.image_right
@@ -18,7 +18,12 @@ class Player(pygame.sprite.Sprite):
     def mouve_right(self):
         self.rect.x += self.velocity
         self.image = self.image_right
+        self.velocity = 1
 
     def mouve_left(self):
         self.rect.x -= self.velocity
         self.image = self.image_left
+        self.velocity = 1
+
+    def stop(self):
+        self.velocity = 0

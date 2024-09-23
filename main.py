@@ -26,10 +26,12 @@ while running:
     screen.blit(game.player.image, game.player.rect)
 
     # Verifier le deplacmeent du joueur
-    if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x < 920:
-        game.player.mouve_right()
-    elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 10:
+    if game.pressed.get(pygame.K_LEFT) and game.pressed.get(pygame.K_RIGHT):
+        game.player.stop()
+    elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 15:
         game.player.mouve_left()
+    elif game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + (game.player.rect.width + 15) < screen.get_width():
+        game.player.mouve_right()
 
     # Mettre à jour l'ecran.
     pygame.display.flip()
@@ -38,10 +40,9 @@ while running:
     for event in pygame.event.get():
         # Si l'événement est "fermé" alors, on quitte la page.
         if event.type == pygame.QUIT:
-            running == False
+            running = False
             pygame.quit()
-
-        # Si l'evenement est lacher une touche on...
+        # Si l'evenement est de tenir ou lacher une touche on...
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
